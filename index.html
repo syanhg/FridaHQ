@@ -33,38 +33,18 @@ main {
   gap: 1.5rem;
   padding-block: 3rem 1.5rem;
 }
-h1 {
-  margin: 0;
-  font-size: 1.75rem;
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  color: #1d1d1f;
-  opacity: 0.35;
-}
-.frame {
-  position: relative;
-  width: min(100%, 760px, max(320px, calc((100svh - 22rem) * 1.7093)));
-}
-.frame video {
+video {
   display: block;
-  width: 100%;
+  width: min(100%, 760px, max(320px, calc((100svh - 18rem) * 1.7093)));
   aspect-ratio: 3692 / 2160;
   object-fit: cover;
-  border-radius: 28px; /* replaced by the squircle clip once the script runs */
+  box-sizing: border-box;
+  border: 1px solid #d2d2d7;
+  border-radius: 20px;
   background: #f5f5f7;
 }
-.frame svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  pointer-events: none;
-}
-.frame path { fill: none; stroke: #d2d2d7; stroke-width: 1; }
 .about {
-  max-width: 34rem;
+  max-width: 29rem;
   margin: 0;
   text-align: center;
   font-size: 0.9375rem;
@@ -77,9 +57,7 @@ nav a:hover { color: #3a3a3a; }
 footer { padding-block: 1.5rem; font-size: 0.75rem; color: #a1a1a6; }
 @media (prefers-color-scheme: dark) {
   body { background: #0a0a0a; }
-  h1 { color: #f5f5f7; }
-  .frame video { background: #1c1c1e; }
-  .frame path { stroke: #3a3a3c; }
+  video { border-color: #3a3a3c; background: #1c1c1e; }
   .about { color: #98989d; }
   nav a { color: #7a7a7a; }
   nav a:hover { color: #e0e0e0; }
@@ -89,11 +67,7 @@ footer { padding-block: 1.5rem; font-size: 0.75rem; color: #a1a1a6; }
 </head>
 <body>
 <main>
-  <h1>frida</h1>
-  <div class="frame">
-    <video src="frida.mp4" poster="assets/frida-poster.jpg" autoplay muted loop playsinline disablepictureinpicture preload="auto" aria-label="Frida interface preview"></video>
-    <svg aria-hidden="true"><path/></svg>
-  </div>
+  <video src="frida.mp4" poster="assets/frida-poster.jpg" autoplay muted loop playsinline disablepictureinpicture preload="auto" aria-label="Frida interface preview"></video>
   <p class="about">Frida is a personal agent that lives somewhere between thought and motion. Its interface flows like water, taking shape around your intent rather than asking you to conform to its own.</p>
   <nav>
     <a href="terms/">Terms</a>
@@ -101,50 +75,5 @@ footer { padding-block: 1.5rem; font-size: 0.75rem; color: #a1a1a6; }
   </nav>
 </main>
 <footer>&copy; 2026 MonyCompany Inc. All rights reserved.</footer>
-
-<script>
-(function () {
-  var frame = document.querySelector(".frame");
-  var video = frame.querySelector("video");
-  var svg = frame.querySelector("svg");
-  var outline = svg.querySelector("path");
-
-  // Continuous-corner rectangle: each corner is a quarter superellipse.
-  function squircle(w, h, corner, inset) {
-    var n = 4, steps = 16;
-    var x0 = inset, y0 = inset, x1 = w - inset, y1 = h - inset;
-    var c = Math.min(corner, (x1 - x0) / 2, (y1 - y0) / 2);
-    var corners = [
-      [x1 - c, y0 + c, 1, -1, true],
-      [x1 - c, y1 - c, 1, 1, false],
-      [x0 + c, y1 - c, -1, 1, true],
-      [x0 + c, y0 + c, -1, -1, false]
-    ];
-    var pts = [];
-    corners.forEach(function (k) {
-      for (var i = 0; i <= steps; i++) {
-        var t = (k[4] ? steps - i : i) / steps * Math.PI / 2;
-        pts.push((k[0] + k[2] * c * Math.pow(Math.cos(t), 2 / n)).toFixed(2) + " " +
-                 (k[1] + k[3] * c * Math.pow(Math.sin(t), 2 / n)).toFixed(2));
-      }
-    });
-    return "M" + pts.join(" L") + "Z";
-  }
-
-  function draw() {
-    var w = frame.clientWidth, h = video.clientHeight;
-    var corner = Math.max(36, w * 0.075);
-    video.style.borderRadius = "0";
-    // Clip the video to the stroke's inner edge so nothing shows outside the 1px line.
-    video.style.clipPath = "path('" + squircle(w, h, corner - 1, 1) + "')";
-    svg.setAttribute("viewBox", "0 0 " + w + " " + h);
-    outline.setAttribute("d", squircle(w, h, corner - 0.5, 0.5));
-  }
-
-  draw();
-  if (window.ResizeObserver) new ResizeObserver(draw).observe(frame);
-  else window.addEventListener("resize", draw);
-})();
-</script>
 </body>
 </html>
