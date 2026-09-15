@@ -11,10 +11,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>
-html, body { margin: 0; }
+/* Single screen: the page never scrolls; the video shrinks to fit the viewport. */
+html, body { margin: 0; height: 100%; overflow: hidden; overscroll-behavior: none; }
 body {
-  min-height: 100vh;
-  min-height: 100svh;
+  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,17 +26,28 @@ body {
 }
 main {
   flex: 1;
+  min-height: 0;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
-  padding-block: 3rem 1.5rem;
+  padding-block: clamp(1rem, 5vh, 3rem) 1.5rem;
+  box-sizing: border-box;
+}
+/* The stage never grows past the video's largest size, and shrinks when height runs out. */
+.stage {
+  flex: 0 1 min(444.6px, calc((100vw - 32px) / 1.7093));
+  min-height: 0;
+  width: 100%;
+  container-type: size;
+  display: grid;
+  place-items: center;
 }
 video {
   display: block;
-  width: min(100%, 760px, max(320px, calc((100svh - 18rem) * 1.7093)));
+  width: min(100cqw, 760px, 100cqh * 1.7093);
   aspect-ratio: 3692 / 2160;
   object-fit: cover;
   box-sizing: border-box;
@@ -54,7 +66,7 @@ video {
 nav { display: flex; gap: 1.25rem; font-size: 0.875rem; }
 nav a { color: #8a8a8a; text-decoration: none; }
 nav a:hover { color: #3a3a3a; }
-footer { padding-block: 1.5rem 3.5rem; font-size: 0.75rem; color: #a1a1a6; }
+footer { flex: none; padding-block: 1.5rem clamp(1rem, 6vh, 3.5rem); font-size: 0.75rem; color: #a1a1a6; }
 @media (prefers-color-scheme: dark) {
   body { background: #0a0a0a; }
   video { border-color: #3a3a3c; background: #1c1c1e; }
@@ -67,7 +79,9 @@ footer { padding-block: 1.5rem 3.5rem; font-size: 0.75rem; color: #a1a1a6; }
 </head>
 <body>
 <main>
-  <video src="frida.mp4" poster="assets/frida-poster.jpg" autoplay muted loop playsinline disablepictureinpicture preload="auto" aria-label="Frida interface preview"></video>
+  <div class="stage">
+    <video src="frida.mp4" poster="assets/frida-poster.jpg" autoplay muted loop playsinline disablepictureinpicture preload="auto" aria-label="Frida interface preview"></video>
+  </div>
   <p class="about">Frida is a personal agent that lives somewhere between thought and motion. Its interface flows like water, taking shape around your intent rather than asking you to conform to its own.</p>
   <nav>
     <a href="terms/">Terms</a>
