@@ -9,37 +9,34 @@
 <link rel="apple-touch-icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #fff;
-  --card: #f5f5f7;
-  --ink: #1d1d1f;
-  --muted: #6e6e73;
-  --accent: #0071e3;
-  --hair: #d2d2d7;
-  --control: #e8e8ed;
-  --control-ink: #1d1d1f;
-}
-html { -webkit-text-size-adjust: 100%; }
+/* Single screen: the page never scrolls; the video shrinks to fit the viewport. */
+html, body { margin: 0; height: 100%; overflow: hidden; overscroll-behavior: none; }
 body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--ink);
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-inline: 16px;
+  box-sizing: border-box;
+  background: #fff;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
 }
-/* Hero holds one full screen; everything below it scrolls normally. */
-.hero {
-  min-height: 100vh;
-  min-height: 100dvh;
+main {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
-  padding: clamp(1rem, 5vh, 3rem) 16px;
+  padding-block: clamp(1rem, 5vh, 3rem) 1.5rem;
   box-sizing: border-box;
 }
+/* The stage never grows past the video's largest size, and shrinks when height runs out. */
 .stage {
   flex: 0 1 min(444.6px, calc((100vw - 32px) / 1.7093));
   min-height: 0;
@@ -54,9 +51,9 @@ video {
   aspect-ratio: 3692 / 2160;
   object-fit: cover;
   box-sizing: border-box;
-  border: 1px solid var(--hair);
+  border: 1px solid #d2d2d7;
   border-radius: 20px;
-  background: var(--card);
+  background: #f5f5f7;
 }
 .about {
   max-width: 29rem;
@@ -64,275 +61,33 @@ video {
   text-align: center;
   font-size: 0.9375rem;
   line-height: 1.6;
-  color: var(--muted);
-}
-
-/* ---- Carousel ---- */
-.carousel { padding-block: clamp(2rem, 8vh, 5rem); }
-.track {
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  align-items: start;
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: var(--gutter);
-  padding-inline: var(--gutter);
-  padding-block: 4px;
-  scrollbar-width: none;
-  --gutter: max(16px, calc((100vw - 1120px) / 2));
-}
-.track::-webkit-scrollbar { display: none; }
-.card {
-  flex: 0 0 min(calc(100vw - 56px), 360px);
-  scroll-snap-align: start;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  min-height: 260px;
-  padding: 28px;
-  border-radius: 24px;
-  background: var(--card);
-}
-.card svg { width: 30px; height: 30px; color: var(--accent); }
-.card h2 {
-  margin: 28px 0 0;
-  font-size: 1.375rem;
-  line-height: 1.25;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-.card h2 span { color: var(--accent); display: block; }
-.more {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.35s ease;
-}
-.more > p {
-  overflow: hidden;
-  margin: 0;
-  font-size: 0.9375rem;
-  line-height: 1.55;
-  color: var(--muted);
-}
-.card[data-open="true"] .more { grid-template-rows: 1fr; }
-.card[data-open="true"] .more > p { padding-top: 14px; }
-.toggle {
-  align-self: end;
-  margin-top: auto;
-  width: 34px;
-  height: 34px;
-  display: grid;
-  place-items: center;
-  border: 0;
-  border-radius: 50%;
-  background: var(--control);
-  color: var(--control-ink);
-  font: inherit;
-  cursor: pointer;
-  transition: transform 0.3s ease, background 0.2s ease;
-}
-.toggle:hover { background: var(--hair); }
-.toggle svg { width: 14px; height: 14px; color: inherit; }
-.card[data-open="true"] .toggle { transform: rotate(45deg); }
-.arrows {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  padding: 20px var(--gutter) 0;
-  --gutter: max(16px, calc((100vw - 1120px) / 2));
-}
-.arrows button {
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
-  border: 0;
-  border-radius: 50%;
-  background: var(--control);
-  color: var(--control-ink);
-  cursor: pointer;
-  transition: opacity 0.2s ease, background 0.2s ease;
-}
-.arrows button:hover:not(:disabled) { background: var(--hair); }
-.arrows button:disabled { opacity: 0.35; cursor: default; }
-.arrows svg { width: 15px; height: 15px; }
-
-footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.25rem;
-  padding: 2rem 16px clamp(2rem, 6vh, 3.5rem);
+  color: #6e6e73;
 }
 nav { display: flex; gap: 1.25rem; font-size: 0.875rem; }
 nav a { color: #8a8a8a; text-decoration: none; }
 nav a:hover { color: #3a3a3a; }
-small { font-size: 0.75rem; color: #a1a1a6; }
-
+footer { flex: none; padding-block: 1.5rem clamp(1rem, 6vh, 3.5rem); font-size: 0.75rem; color: #a1a1a6; }
 @media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0a0a0a;
-    --card: #1c1c1e;
-    --ink: #f5f5f7;
-    --muted: #98989d;
-    --accent: #2997ff;
-    --hair: #3a3a3c;
-    --control: #2c2c2e;
-    --control-ink: #f5f5f7;
-  }
+  body { background: #0a0a0a; }
+  video { border-color: #3a3a3c; background: #1c1c1e; }
+  .about { color: #98989d; }
   nav a { color: #7a7a7a; }
   nav a:hover { color: #e0e0e0; }
-  small { color: #6e6e73; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .more, .toggle { transition: none; }
+  footer { color: #6e6e73; }
 }
 </style>
 </head>
 <body>
-<section class="hero">
+<main>
   <div class="stage">
     <video src="frida.mp4" poster="assets/frida-poster.jpg" autoplay muted loop playsinline disablepictureinpicture preload="auto" aria-label="Frida interface preview"></video>
   </div>
   <p class="about">Frida is a personal agent that lives somewhere between thought and motion. Its interface flows like water, taking shape around your intent rather than asking you to conform to its own.</p>
-</section>
-
-<section class="carousel" aria-label="What Frida does">
-  <div class="track" id="track" tabindex="0">
-
-    <article class="card" data-open="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M2 7c2.5 0 2.5 2 5 2s2.5-2 5-2 2.5 2 5 2 2.5-2 5-2"/>
-        <path d="M2 13c2.5 0 2.5 2 5 2s2.5-2 5-2 2.5 2 5 2 2.5-2 5-2"/>
-        <path d="M2 19c2.5 0 2.5 2 5 2s2.5-2 5-2 2.5 2 5 2 2.5-2 5-2"/>
-      </svg>
-      <h2><span>Fluid by design.</span>The interface bends to you.</h2>
-      <div class="more"><p>Panels, prompts and controls assemble around the task in front of you, then dissolve when it's done. Nothing to arrange, nothing to put away.</p></div>
-      <button class="toggle" type="button" aria-expanded="false" aria-label="More about the interface">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-      </button>
-    </article>
-
-    <article class="card" data-open="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M12 3l1.9 4.6L18.5 9.5 13.9 11.4 12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/>
-        <path d="M18 15.5l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z"/>
-      </svg>
-      <h2><span>A step ahead.</span>It reads intent, not commands.</h2>
-      <div class="more"><p>Frida picks up on where a piece of work is heading and prepares the next move, so the thing you were about to ask for is already waiting.</p></div>
-      <button class="toggle" type="button" aria-expanded="false" aria-label="More about intent">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-      </button>
-    </article>
-
-    <article class="card" data-open="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H12z"/>
-      </svg>
-      <h2><span>Always a keystroke away.</span>Summon it from anywhere.</h2>
-      <div class="more"><p>One shortcut brings Frida into whatever you're already in — a document, a browser tab, a terminal. It arrives with the context intact.</p></div>
-      <button class="toggle" type="button" aria-expanded="false" aria-label="More about summoning Frida">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-      </button>
-    </article>
-
-    <article class="card" data-open="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="4" y="10.5" width="16" height="11" rx="3"/>
-        <path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>
-        <path d="M12 15v2.5"/>
-      </svg>
-      <h2><span>Private by default.</span>Your context stays yours.</h2>
-      <div class="more"><p>What Frida learns about your work belongs to you. Nothing is sold, nothing is traded, and you can clear its memory whenever you like.</p></div>
-      <button class="toggle" type="button" aria-expanded="false" aria-label="More about privacy">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-      </button>
-    </article>
-
-    <article class="card" data-open="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M21 12a9 9 0 1 1-2.6-6.4"/>
-        <path d="M21 3.5V9h-5.5"/>
-        <path d="M9 12l2 2 4-4.5"/>
-      </svg>
-      <h2><span>Finishes the job.</span>It acts, it doesn't just answer.</h2>
-      <div class="more"><p>Give Frida a goal and it carries the work through — the calls, the edits, the follow-ups — checking back with you only where a decision is genuinely yours.</p></div>
-      <button class="toggle" type="button" aria-expanded="false" aria-label="More about completing tasks">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-      </button>
-    </article>
-
-    <article class="card" data-open="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="2" y="4" width="14" height="10" rx="2"/>
-        <path d="M6 18h6"/>
-        <rect x="17" y="10" width="5" height="10" rx="1.5"/>
-      </svg>
-      <h2><span>One continuous thought.</span>Every device, same thread.</h2>
-      <div class="more"><p>Start something on your phone and pick it up on your desk mid-sentence. Frida keeps one thread of work rather than a copy on each screen.</p></div>
-      <button class="toggle" type="button" aria-expanded="false" aria-label="More about continuity">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-      </button>
-    </article>
-
-  </div>
-
-  <div class="arrows">
-    <button type="button" id="prev" aria-label="Previous" aria-controls="track" disabled>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
-    </button>
-    <button type="button" id="next" aria-label="Next" aria-controls="track">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
-    </button>
-  </div>
-</section>
-
-<footer>
   <nav>
     <a href="terms/">Terms</a>
     <a href="privacy/">Privacy</a>
   </nav>
-  <small>&copy; 2026 MonyCompany Inc. All rights reserved.</small>
-</footer>
-
-<script>
-(function () {
-  var track = document.getElementById('track');
-  var prev = document.getElementById('prev');
-  var next = document.getElementById('next');
-  var smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function step() {
-    var card = track.querySelector('.card');
-    if (!card) return track.clientWidth;
-    return card.getBoundingClientRect().width + 16;
-  }
-
-  function sync() {
-    var max = track.scrollWidth - track.clientWidth;
-    prev.disabled = track.scrollLeft <= 1;
-    next.disabled = track.scrollLeft >= max - 1;
-  }
-
-  function go(dir) {
-    track.scrollBy({ left: dir * step(), behavior: smooth ? 'smooth' : 'auto' });
-  }
-
-  prev.addEventListener('click', function () { go(-1); });
-  next.addEventListener('click', function () { go(1); });
-  track.addEventListener('scroll', sync, { passive: true });
-  window.addEventListener('resize', sync);
-  sync();
-
-  track.addEventListener('click', function (e) {
-    var button = e.target.closest('.toggle');
-    if (!button) return;
-    var card = button.closest('.card');
-    var open = card.dataset.open !== 'true';
-    card.dataset.open = open ? 'true' : 'false';
-    button.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-})();
-</script>
+</main>
+<footer>&copy; 2026 MonyCompany Inc. All rights reserved.</footer>
 </body>
 </html>
