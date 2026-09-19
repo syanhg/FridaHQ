@@ -9,114 +9,99 @@
 <link rel="apple-touch-icon" href="../assets/favicon.png">
 <style>
 body { padding: 40px 32px; }
-h1, h2, h3, p, ul, table { max-width: 40em; }
-table { border-collapse: collapse; margin: 1em 0; }
-th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; vertical-align: top; }
+h1, h2, h3, p, ul { max-width: 40em; }
 </style>
 </head>
 <body>
 
 <h1>Privacy Policy</h1>
 
-<p><small>Last updated September 8, 2026</small></p>
+<p><small>Last updated September 19, 2026</small></p>
 
-<p>MonyCompany Inc. (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) operates Frida, a personal agent for iPhone. There is no Frida server. The app runs on your device, stores what it knows on your device, and talks to outside services directly from your device. This policy explains the little that reaches us, everything that leaves your phone and where it goes, and what you can ask us to do about any of it.</p>
+<p>MonyCompany Inc. (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) operates Frida, a personal agent for iPhone. Frida keeps your conversation, and what it knows about you, on your phone. This policy explains the little that reaches us, what leaves your phone and why, and what you can ask us to do about any of it.</p>
 
 <h2>1. Information we collect</h2>
 <ul>
-  <li><b>Sign in with Apple.</b> Frida offers no other way in. We request <b>your name only</b>. We do not request your email address, because there is no server to send mail from, and an address collected for no reason is still an address collected. Apple also returns a stable identifier for your account. Both are held in the iOS Keychain on your device. Your name is offered by Apple exactly once, on the authorization that creates the account.</li>
-  <li><b>Support and access requests.</b> What you write to us, and the address you write from. This is the only channel where we receive an email address from you, and you supply it by writing to us.</li>
+  <li><b>Sign in with Apple.</b> Frida offers no other way in. We request <b>your name only</b>, not your email address. Apple also returns a stable identifier for your account. Both are held in the iOS Keychain on your device.</li>
+  <li><b>Purchases.</b> If you buy something through Frida, our server keeps what is needed to place and track the order: what you bought, its price, and its status. Your name, email, phone number, and delivery address are kept only until the order has been placed or has failed. If you connect a payment wallet, our server holds the connection so it can request payment when you approve a purchase. Card numbers are never stored by us and never reach your phone.</li>
+  <li><b>Support and access requests.</b> What you write to us, and the address you write from.</li>
   <li><b>Diagnostics.</b> Crash and performance reports, if you have allowed your device to share them. These reach us through Apple, aggregated, and do not contain your conversation.</li>
 </ul>
-<p>That is the whole list of what comes to <i>us</i>. Frida has no cookies, no advertising identifiers, no third-party analytics, and no tracking SDKs.</p>
+<p>Frida has no cookies, no advertising identifiers, no third-party analytics, and no tracking SDKs.</p>
 
 <h2>2. What stays on your device</h2>
-<p>Your conversation, the memories Frida forms about you, the habits it observes, the cards it draws, the work it has scheduled, and its cache of resolved photographs are written to the app&rsquo;s private storage on your phone. Your Apple account identifier, your name, and the authorization tokens for any service you connect are held in the iOS Keychain on your phone. None of it is uploaded to us. We cannot read it, and we cannot recover it for you.</p>
-<p>Because there is no server, this is per device. Signing in on a second phone connects nothing and carries nothing across.</p>
+<p>Your conversation, the memories Frida forms about you, the habits it observes, the cards it draws, the work it has scheduled, your reservations, and its cache of photographs are written to the app&rsquo;s private storage on your phone. This includes anything Frida reads for you from an account you connect, which becomes part of the conversation. Your Apple account identifier, your name, the contact and delivery details you save, and the tokens for the accounts you connect are held in the iOS Keychain on your phone. None of it is uploaded to us, and we cannot recover it for you.</p>
 
-<h2>3. What leaves your device, and to whom</h2>
-<p>Frida is useless without a model, and a model runs somewhere else. Requests go from your phone to the services below directly &mdash; they do not pass through us.</p>
-
-<table>
-  <tr><th>Who</th><th>What is sent</th><th>When</th></tr>
-  <tr>
-    <td><b>Google</b> (Gemini API)</td>
-    <td>Your message, the conversation so far, the standing memories Frida holds about you (which include your name), and the results of any tool it ran for you.</td>
-    <td>Every turn you take.</td>
-  </tr>
-  <tr>
-    <td><b>Exa</b></td>
-    <td>A search query, or the address of a page to read.</td>
-    <td>Only on turns where the model decides it needs the open web.</td>
-  </tr>
-  <tr>
-    <td><b>Google Places</b></td>
-    <td>The name of a place to resolve, and &mdash; if you have allowed location &mdash; your coordinate, so &ldquo;nearby&rdquo; means nearby.</td>
-    <td>When a card needs a real point on a real map.</td>
-  </tr>
-  <tr>
-    <td><b>Wikipedia and Wikimedia Commons</b></td>
-    <td>The name of a subject, to find a photograph of it.</td>
-    <td>When a card needs a picture and Places has none.</td>
-  </tr>
-  <tr>
-    <td><b>Services you connect</b><br>(Linear, Notion, Granola, Stripe, Sentry, Ramp)</td>
-    <td>The request the agent is making, with the token you granted.</td>
-    <td>Only for services you have connected, and only when a turn calls for one.</td>
-  </tr>
-</table>
-
-<p><b>The model is sent requests with storage switched off.</b> Frida sets <code>store: false</code> on every call and replays the conversation from your device each turn, so the thread lives on your phone rather than in a copy held by the provider. What Google, Exa, and the rest do with a request they receive is governed by their own terms and privacy policies, not by this one.</p>
-
-<p><b>Your precise location is never sent to the model.</b> If you allow location, the coordinate stays on your phone. The model is told the name of the neighbourhood you are in &mdash; &ldquo;Seongsu-dong, Seoul&rdquo; &mdash; and never the number. The coordinate itself is used locally, and passed to Google Places only to search around you.</p>
-
-<h2>4. Permissions the app asks for</h2>
-<p>Each is asked for at the moment it is first needed, never at launch, and Frida works without every one of them. Once iOS has an answer on file, only Settings can change it.</p>
+<h2>3. What leaves your device, and why</h2>
+<p>Frida needs outside services to answer you. Each receives only what its part of the job requires:</p>
 <ul>
-  <li><b>Calendar</b> &mdash; to answer questions about your week, and to put holds on your calendar when you ask.</li>
-  <li><b>Reminders</b> &mdash; to keep lists you make in the conversation in sync with the Reminders app.</li>
-  <li><b>Location</b> (while in use) &mdash; as described above.</li>
-  <li><b>Photos</b> &mdash; to show your latest photos above the keyboard so you can bring one into the conversation. A photo is sent to the model only if you attach it.</li>
-  <li><b>Apple Music</b> &mdash; to play what you ask for without leaving the conversation.</li>
-  <li><b>Notifications</b> &mdash; for the three things Frida promises to tell you: a timer has finished, a moment you asked about has arrived, or work you scheduled is done.</li>
+  <li><b>AI model providers</b> receive your message, the conversation so far, the standing memories Frida holds about you, and the results of anything it looked up or read for you, including from accounts you connect. During a voice call, they also receive your voice and the text of Frida&rsquo;s answers so they can be spoken. A photo is sent only if you attach it.</li>
+  <li><b>Search, map, and weather services</b> receive a search query, the address of a page, or the name of a place. If you allow location, they may receive your location so &ldquo;nearby&rdquo; means nearby and a forecast is for where you are.</li>
+  <li><b>Accounts you connect</b> receive the requests Frida makes on your behalf, with the permission you granted.</li>
+  <li><b>Shopping and payment partners</b> receive what you are buying, your name, email, and delivery address, and the payment you approved, so the store can fulfil the order.</li>
+  <li><b>Restaurant booking partners</b> receive what you are looking for and, when you book, your name, phone number, email, and a card if the restaurant requires one. These go to the restaurant&rsquo;s booking system.</li>
+</ul>
+<p>We use AI model providers under terms that do not allow them to train their models on what we send, and we switch off storage of requests wherever a provider allows it. <b>Your precise location is never sent to the model.</b> It is told the name of your neighbourhood, and nothing finer. What these providers do with what they receive is also governed by their own terms and privacy policies.</p>
+
+<h2>4. Gmail and Google Calendar</h2>
+<p>If you connect Gmail or Google Calendar, Frida asks Google for <b>read-only</b> access and nothing wider. It cannot send, delete, label, or change email, and it cannot create, change, or delete calendar events.</p>
+<ul>
+  <li><b>What Frida accesses.</b> Gmail: the messages and conversations it searches or opens to answer you. Google Calendar: your list of calendars and the events on them.</li>
+  <li><b>How it is used.</b> Only to provide the features you ask for: answering questions about your email and your schedule, showing messages and events in the conversation, drafting a reply you send yourself, and showing your Google events alongside the calendar on your phone.</li>
+  <li><b>Where it goes.</b> Frida reads your Google data from your phone, directly from Google. What it reads is sent to our AI model providers to produce your answer, and during a voice call the answer is sent to be spoken. It is never stored on our servers.</li>
+  <li><b>What we never do.</b> We do not sell Google user data. We do not use it for advertising or to train AI models, ours or anyone else&rsquo;s. We do not use it to determine creditworthiness or for lending. Nobody at MonyCompany reads it, unless you ask us to for a specific message, it is needed to investigate abuse or keep Frida secure, or the law requires it.</li>
+  <li><b>How to revoke access.</b> Tap <b>Disconnect</b> beside Gmail or Calendar in the app, or remove Frida at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>. Delete Account in the app revokes both.</li>
+</ul>
+<p>Frida&rsquo;s use and transfer to any other app of information received from Google APIs will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+
+<h2>5. Permissions the app asks for</h2>
+<p>Each is asked for when it is first needed, never at launch, and Frida works without any of them. Once iOS has an answer on file, only Settings can change it.</p>
+<ul>
+  <li><b>Calendar and Reminders</b>, to answer questions about your week, put holds on your calendar, and keep your lists in sync.</li>
+  <li><b>Location</b>, as described above. Optionally always, so an errand tied to arriving somewhere works with the app closed.</li>
+  <li><b>Microphone</b>, only while you are on a voice call with Frida.</li>
+  <li><b>Photos</b>, to show your latest photos above the keyboard. A photo leaves your phone only if you attach it.</li>
+  <li><b>Motion</b>, to count steps while you track a walk or a run. It stays on your phone.</li>
+  <li><b>Face ID</b>, to confirm it is you before a payment or a booking. iOS handles this; Frida never sees your face data.</li>
+  <li><b>Apple Music</b>, to play what you ask for.</li>
+  <li><b>Notifications</b>, for timers, moments you asked about, and work you scheduled.</li>
 </ul>
 
-<h2>5. How we use it</h2>
-<p>To let you sign in and keep you signed in; to run what you ask Frida to run; to answer you when you write to us; to fix crashes and improve the app; to investigate reports of abuse; and to meet legal obligations.</p>
+<h2>6. How we use it</h2>
+<p>To let you sign in and keep you signed in; to run what you ask Frida to run, including placing orders and bookings you approve; to answer you when you write to us; to fix crashes and improve the app; to investigate reports of abuse; and to meet legal obligations.</p>
 
-<h2>6. How we share it</h2>
+<h2>7. How we share it</h2>
 <ul>
-  <li><b>The services in section 3</b>, from your device, for the purposes described there.</li>
-  <li><b>Apple</b>, which handles sign-in, app distribution, and any diagnostics you have chosen to share, under Apple&rsquo;s own privacy policy.</li>
+  <li><b>Service providers</b> described in section 3, and the company that hosts our server, only for the purposes described there.</li>
+  <li><b>Apple</b>, which handles sign-in, app distribution, and any diagnostics you have chosen to share.</li>
   <li><b>Legal authorities</b>, where the law requires it, and <b>an acquiring party</b> in a merger, acquisition, or sale of assets.</li>
 </ul>
-<p>We do not sell or share your personal information for advertising, and we do not train models on your content.</p>
+<p>We do not sell or share your personal information for advertising.</p>
 
-<h2>7. Connected services</h2>
-<p>You choose which services to connect. Frida connects to <b>Linear, Notion, Granola, Stripe, Sentry, and Ramp</b> through each service&rsquo;s own OAuth flow, so you authorize with that provider and grant only the scopes you are shown. Ramp is requested read-only. The resulting tokens are stored in your device&rsquo;s Keychain and used from your device; they never pass through our servers, because we have none.</p>
-<p>An agent acts inside the permissions you grant it and can read and, where you have granted it, write in a connected account on your behalf. You can disconnect a service at any time in the app, or revoke it in that provider&rsquo;s own settings. Data already brought onto your device stays there until you delete it.</p>
+<h2>8. Connected accounts</h2>
+<p>You choose which accounts to connect. Each is connected through the provider&rsquo;s own sign-in, so you authorize with that provider and grant only the permissions you are shown. The tokens are stored in your device&rsquo;s Keychain and used from your device. You can disconnect an account at any time in the app, or revoke it in that provider&rsquo;s own settings.</p>
 
-<h2>8. Retention and deletion</h2>
-<p>We keep the support correspondence you send us until we have finished acting on it. There is nothing else of yours on our systems to keep.</p>
-<p><b>Delete Account</b> in the app &mdash; the <b>+</b> button, then the row with your name on it &mdash; erases your conversation and every thread, the memories and habits Frida formed, work it had scheduled, the OAuth grants in the Keychain, anything it put on your Lock Screen, notifications waiting or already delivered, and the cache of photographs it downloaded. Deleting the app removes the same material.</p>
-<p>One thing is deliberately left alone: calendar events and reminders Frida wrote for you stay in Calendar and Reminders. Those are yours, in your own apps, put there at your request; deleting an account is not licence to reach into them.</p>
+<h2>9. Retention and deletion</h2>
+<p><b>Delete Account</b> in the app (the <b>+</b> button, then the row with your name on it) erases your conversation and every thread, the memories and habits Frida formed, work it had scheduled, your saved details, the grants for every connected account, anything it put on your Lock Screen, its notifications, and its cache of photographs. Deleting the app removes the same material from your phone.</p>
+<p>Records of purchases, and a payment wallet connection if you made one, are kept on our server until you ask us to delete them. Write to us and we will. We keep support correspondence until we have finished acting on it.</p>
+<p>Calendar events and reminders Frida wrote for you stay in your own apps. Deleting an account is not licence to reach into them.</p>
 
-<h2>9. Security</h2>
-<p>We use appropriate technical and organizational measures: encryption in transit, credentials and tokens held in the iOS Keychain, and your content in the app&rsquo;s private storage on your device rather than on a server of ours. No method of transmission or storage is perfectly secure, and we cannot guarantee absolute security. Because your data lives on your device, the passcode, Face ID, and backup settings on that device are part of protecting it.</p>
+<h2>10. Security</h2>
+<p>We use encryption in transit, keep credentials and tokens in the iOS Keychain, and keep your content on your device rather than on a server of ours. No method of transmission or storage is perfectly secure, and we cannot guarantee absolute security. Because your data lives on your device, the passcode, Face ID, and backup settings on that device are part of protecting it.</p>
 
-<h2>10. Your rights</h2>
-<p>You can delete everything yourself, in the app, as described in section 8. You can also ask us to access, correct, export, or delete personal information we hold, and to stop sending you email. Depending on where you live you may have further rights over how your data is used. Write to <a href="mailto:seungyong@usemony.com">seungyong@usemony.com</a> and we will respond within a reasonable period.</p>
+<h2>11. Your rights</h2>
+<p>You can delete what is on your phone yourself, as described in section 9. You can also ask us to access, correct, export, or delete personal information we hold. Depending on where you live you may have further rights over how your data is used. Write to <a href="mailto:seungyong@usemony.com">seungyong@usemony.com</a> and we will respond within a reasonable period.</p>
 
-<h2>11. Children&rsquo;s privacy</h2>
+<h2>12. Children&rsquo;s privacy</h2>
 <p>Frida is not directed to children, and we do not knowingly collect personal information from anyone under 13. If you believe a child has given us information, write to us and we will remove it.</p>
 
-<h2>12. International transfers</h2>
-<p>We operate from the United States. Information that reaches us, and requests your device makes to the services in section 3, may be processed in the United States or anywhere those providers operate. Where the law requires it, we apply appropriate safeguards to those transfers.</p>
+<h2>13. International transfers</h2>
+<p>We operate from the United States. Information that reaches us, and requests your device makes to the providers in section 3, may be processed in the United States or anywhere those providers operate. Where the law requires it, we apply appropriate safeguards to those transfers.</p>
 
-<h2>13. Changes</h2>
+<h2>14. Changes</h2>
 <p>We may update this policy. We will post the new version on this page and change the date above, and we will tell you directly if the change is a material one.</p>
 
-<h2>14. Contact</h2>
+<h2>15. Contact</h2>
 <p>Questions about this policy: <a href="mailto:seungyong@usemony.com">seungyong@usemony.com</a>.</p>
 
 <p style="margin-top: 2em;"><a href="../terms/">Terms of Service</a></p>
