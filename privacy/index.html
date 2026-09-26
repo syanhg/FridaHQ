@@ -16,7 +16,7 @@ h1, h2, h3, p, ul { max-width: 40em; }
 
 <h1>Privacy Policy</h1>
 
-<p><small>Last updated September 19, 2026</small></p>
+<p><small>Last updated September 26, 2026</small></p>
 
 <p>MonyCompany Inc. (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) operates Frida, a personal agent for iPhone. Frida keeps your conversation, and what it knows about you, on your phone. This policy explains the little that reaches us, what leaves your phone and why, and what you can ask us to do about any of it.</p>
 
@@ -44,11 +44,13 @@ h1, h2, h3, p, ul { max-width: 40em; }
 <p>We use AI model providers under terms that do not allow them to train their models on what we send, and we switch off storage of requests wherever a provider allows it. <b>Your precise location is never sent to the model.</b> It is told the name of your neighbourhood, and nothing finer. What these providers do with what they receive is also governed by their own terms and privacy policies.</p>
 
 <h2>4. Gmail and Google Calendar</h2>
-<p>If you connect Gmail or Google Calendar, Frida asks Google for <b>read-only</b> access and nothing wider. It cannot send, delete, label, or change email, and it cannot create, change, or delete calendar events.</p>
+<p>If you connect Gmail, Frida asks Google for permission to read your email and to send email from your account. If you connect Google Calendar, it asks to read your calendars and to change the events on them. It asks for nothing wider: it cannot delete, archive, or label email, or change email already in your mailbox. Google lists each permission on its sign-in screen before you agree.</p>
 <ul>
-  <li><b>What Frida accesses.</b> Gmail: the messages and conversations it searches or opens to answer you. Google Calendar: your list of calendars and the events on them.</li>
-  <li><b>How it is used.</b> Only to provide the features you ask for: answering questions about your email and your schedule, showing messages and events in the conversation, drafting a reply you send yourself, and showing your Google events alongside the calendar on your phone.</li>
-  <li><b>Where it goes.</b> Frida reads your Google data from your phone, directly from Google. What it reads is sent to our AI model providers to produce your answer, and during a voice call the answer is sent to be spoken. It is never stored on our servers.</li>
+  <li><b>What Frida accesses.</b> Gmail: the messages, conversations, and attachments it searches or opens to answer you, and your mailbox&rsquo;s address. Google Calendar: your list of calendars and the events on them.</li>
+  <li><b>How it is used.</b> Only to provide the features you ask for: answering questions about your email and your schedule, showing messages and events in the conversation, sending the replies, forwards, and emails you write in Frida, moving, editing, and deleting your events, answering invitations, creating events that invite the people you name, and showing your Google events alongside the calendar on your phone.</li>
+  <li><b>Nothing goes out without you.</b> Frida sends an email only when you press Send on it, and waits a few seconds first so you can undo it. It sends a calendar invitation only after you confirm it. It changes an event only when you move, edit, or delete it yourself on a calendar card, or answer an invitation there. When an event has guests, Google tells them about the change or your answer, as Google Calendar does.</li>
+  <li><b>Where it goes.</b> Frida reads your Google data from your phone, directly from Google, and sends your email and calendar changes from your phone straight to Google. What it reads is sent to our AI model providers to produce your answer, and during a voice call the answer is sent to be spoken. It is never stored on our servers. An email you send is kept on your phone until Google confirms it has gone, so it still goes if Frida is closed, and a record that it went is kept on your phone for 90 days so it is never sent twice.</li>
+  <li><b>Pictures in email.</b> When you open an email laid out with pictures, such as a newsletter or a receipt, the pictures load from the sender&rsquo;s servers, as they do in most mail apps. That can tell the sender the email was opened.</li>
   <li><b>What we never do.</b> We do not sell Google user data. We do not use it for advertising or to train AI models, ours or anyone else&rsquo;s. We do not use it to determine creditworthiness or for lending. Nobody at MonyCompany reads it, unless you ask us to for a specific message, it is needed to investigate abuse or keep Frida secure, or the law requires it.</li>
   <li><b>How to revoke access.</b> Tap <b>Disconnect</b> beside Gmail or Calendar in the app, or remove Frida at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>. Delete Account in the app revokes both.</li>
 </ul>
@@ -57,7 +59,7 @@ h1, h2, h3, p, ul { max-width: 40em; }
 <h2>5. Permissions the app asks for</h2>
 <p>Each is asked for when it is first needed, never at launch, and Frida works without any of them. Once iOS has an answer on file, only Settings can change it.</p>
 <ul>
-  <li><b>Calendar and Reminders</b>, to answer questions about your week, put holds on your calendar, and keep your lists in sync.</li>
+  <li><b>Calendar and Reminders</b>, to answer questions about your week, put holds on your calendar, move, edit, and delete the events you change on a calendar card, and keep your lists in sync.</li>
   <li><b>Location</b>, as described above. Optionally always, so an errand tied to arriving somewhere works with the app closed.</li>
   <li><b>Microphone</b>, only while you are on a voice call with Frida.</li>
   <li><b>Photos</b>, to show your latest photos above the keyboard. A photo leaves your phone only if you attach it.</li>
@@ -82,10 +84,10 @@ h1, h2, h3, p, ul { max-width: 40em; }
 <p>You choose which accounts to connect. Each is connected through the provider&rsquo;s own sign-in, so you authorize with that provider and grant only the permissions you are shown. The tokens are stored in your device&rsquo;s Keychain and used from your device. You can disconnect an account at any time in the app, or revoke it in that provider&rsquo;s own settings.</p>
 
 <h2>9. Retention and deletion</h2>
-<p><b>Delete Account</b> in the app (the <b>+</b> button, then the row with your name on it) erases your conversation and every thread, the memories and habits Frida formed, work it had scheduled, your saved details, the grants for every connected account, anything it put on your Lock Screen, its notifications, and its cache of photographs.</p>
+<p><b>Delete Account</b> in the app (the <b>+</b> button, then the row with your name on it) erases your conversation and every thread, the memories and habits Frida formed, work it had scheduled, your saved details, the grants for every connected account, anything it put on your Lock Screen, email still waiting to be sent, its notifications, and its cache of photographs.</p>
 <p>It also deletes everything our server holds for your phone: your payment wallet connection, which is revoked with the wallet provider, and every record of your purchases. If your phone is offline at that moment, this happens the next time Frida opens with a connection.</p>
 <p>Deleting the app removes what is on your phone but cannot reach our server, so use Delete Account first, or write to us and we will delete it. We keep support correspondence until we have finished acting on it.</p>
-<p>Calendar events and reminders Frida wrote for you stay in your own apps. Deleting an account is not licence to reach into them.</p>
+<p>Calendar events and reminders Frida wrote for you stay in your own apps, and email you sent stays in your mailbox. Deleting an account is not licence to reach into them.</p>
 
 <h2>10. Security</h2>
 <p>We use encryption in transit, keep credentials and tokens in the iOS Keychain, and keep your content on your device rather than on a server of ours. No method of transmission or storage is perfectly secure, and we cannot guarantee absolute security. Because your data lives on your device, the passcode, Face ID, and backup settings on that device are part of protecting it.</p>
