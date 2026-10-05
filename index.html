@@ -131,14 +131,15 @@ nav svg { display: block; transition: transform 160ms ease; }
 nav a:hover { color: #3a3a3a; }
 nav a:hover svg { transform: translate(1px, -1px); }
 footer { flex: none; padding-block: 1.5rem clamp(1rem, 6vh, 3.5rem); font-size: 0.75rem; color: #a1a1a6; }
-/* Narrow screens stack the text above the video, which shrinks when height runs out. */
+/* Narrow screens stack everything in one column: the intro's pieces join it so the video sits
+   between the badge and the text, and the video shrinks when height runs out. */
 @media (max-width: 760px) {
-  .hero { flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; width: 100%; height: 100%; }
-  .intro { width: auto; max-width: 29rem; text-align: center; }
-  h1 { margin-bottom: 1.5rem; }
-  .badge { align-self: center; }
-  .about { margin-bottom: 1rem; }
-  nav { justify-content: center; }
+  .hero { flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; gap: 0; }
+  .intro { display: contents; text-align: center; }
+  h1 { margin-bottom: 1rem; }
+  .badge { align-self: center; margin: 0 0 1.5rem; }
+  .about { order: 1; max-width: 29rem; margin: 1.5rem 0 1rem; }
+  nav { order: 1; justify-content: center; }
   .stage { flex: 0 1 min(520px, 100cqw); min-height: 0; width: 100%; container-type: size; display: grid; place-items: center; }
   .frame { width: min(100cqw, 100cqh); }
   .spot1, .spot8, .spot9 { left: -3%; }
