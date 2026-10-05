@@ -28,48 +28,127 @@ main {
   flex: 1;
   min-height: 0;
   width: 100%;
+  container-type: size;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
   padding-block: clamp(1rem, 5vh, 3rem) 1.5rem;
   box-sizing: border-box;
 }
-/* The stage never grows past the video's largest size, and shrinks when height runs out. */
-.stage {
-  flex: 0 1 min(444.6px, calc((100vw - 32px) / 1.7093));
-  min-height: 0;
-  width: 100%;
-  container-type: size;
-  display: grid;
-  place-items: center;
+/* Wordmark level with the video's top on the left; text and links sink to its bottom. */
+.hero {
+  display: flex;
+  gap: 4rem;
 }
-video {
-  display: block;
-  width: min(100cqw, 760px, 100cqh * 1.7093);
-  aspect-ratio: 3692 / 2160;
-  object-fit: cover;
-  box-sizing: border-box;
+.intro { width: 20rem; display: flex; flex-direction: column; }
+h1 {
+  margin: 0 0 2.5rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: #1d1d1f;
+  opacity: 0.35;
+}
+/* Square crop: the phone sits in the middle of the frame, so the empty sides are trimmed away. */
+.frame {
+  position: relative;
+  width: min(520px, 100cqh, 100cqw - 24rem);
+  aspect-ratio: 1;
+  container-type: inline-size;
+}
+.screen {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
   border: 1px solid #d2d2d7;
   border-radius: 20px;
   background: #f5f5f7;
 }
+/* The footage has a dark first and last row; running 3px past the frame hides them. */
+video {
+  position: absolute;
+  top: -3px;
+  left: 0;
+  width: 100%;
+  height: calc(100% + 6px);
+  object-fit: cover;
+}
+/* Emoji stickers around the frame's edges: each spot pops a sticker in, lets it sway, then
+   hides it and comes back with a different emoji. Spots run on different clocks so the mix keeps changing. */
+.sticker {
+  position: absolute;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-size: var(--s, 10cqw);
+  line-height: 1;
+  user-select: none;
+  rotate: var(--r);
+  filter: url(#die-cut) drop-shadow(0 0.06em 0.08em rgb(0 0 0 / 0.18));
+  animation: blink var(--t) var(--d) infinite both, sway calc(var(--t) / 2) ease-in-out infinite alternate;
+}
+.spot1 { --r: -14deg; --d: 0.2s; --t: 8s; --s: 11cqw; top: 5%; left: -7%; }
+.spot2 { --r: 6deg; --d: 2.6s; --t: 9s; top: -6%; left: 34%; }
+.spot3 { --r: 12deg; --d: 0.7s; --t: 10s; --s: 11cqw; top: -6%; right: 8%; }
+.spot4 { --r: 10deg; --d: 3.4s; --t: 8.5s; top: 28%; right: -7%; }
+.spot5 { --r: -6deg; --d: 1.2s; --t: 9.5s; --s: 11cqw; top: 60%; right: -6%; }
+.spot6 { --r: 8deg; --d: 4.1s; --t: 8s; bottom: -5%; right: 16%; }
+.spot7 { --r: -10deg; --d: 1.8s; --t: 10.5s; bottom: -6%; left: 30%; }
+.spot8 { --r: -8deg; --d: 4.8s; --t: 9s; --s: 11cqw; bottom: 18%; left: -6%; }
+.spot9 { --r: 14deg; --d: 3s; --t: 11s; top: 40%; left: -7%; }
+@keyframes blink {
+  0% { opacity: 0; scale: 0.4; }
+  6% { opacity: 1; scale: 1.12; }
+  10%, 46% { opacity: 1; scale: 1; }
+  52%, 100% { opacity: 0; scale: 0.4; }
+}
+@keyframes sway {
+  from { rotate: calc(var(--r) - 4deg); translate: 0 0; }
+  to { rotate: calc(var(--r) + 4deg); translate: 0 -6%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sticker { animation: none; }
+  .spot2, .spot4, .spot7, .spot9 { display: none; }
+}
+.badge {
+  align-self: flex-start;
+  margin: auto 0 1rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  background: #f0f0f3;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  color: #6e6e73;
+}
 .about {
-  max-width: 29rem;
-  margin: 0;
-  text-align: center;
-  font-size: 0.9375rem;
+  margin: 0 0 1.5rem;
+  font-size: 0.875rem;
   line-height: 1.6;
   color: #6e6e73;
 }
-nav { display: flex; gap: 1.25rem; font-size: 0.875rem; }
-nav a { color: #8a8a8a; text-decoration: none; }
+nav { display: flex; gap: 1.25rem; font-size: 0.875rem; line-height: 1; }
+nav a { display: inline-flex; align-items: center; gap: 3px; color: #8a8a8a; text-decoration: none; transition: color 160ms ease; }
+nav svg { display: block; transition: transform 160ms ease; }
 nav a:hover { color: #3a3a3a; }
+nav a:hover svg { transform: translate(1px, -1px); }
 footer { flex: none; padding-block: 1.5rem clamp(1rem, 6vh, 3.5rem); font-size: 0.75rem; color: #a1a1a6; }
+/* Narrow screens stack the text above the video, which shrinks when height runs out. */
+@media (max-width: 760px) {
+  .hero { flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; width: 100%; height: 100%; }
+  .intro { width: auto; max-width: 29rem; text-align: center; }
+  h1 { margin-bottom: 1.5rem; }
+  .badge { align-self: center; }
+  .about { margin-bottom: 1rem; }
+  nav { justify-content: center; }
+  .stage { flex: 0 1 min(520px, 100cqw); min-height: 0; width: 100%; container-type: size; display: grid; place-items: center; }
+  .frame { width: min(100cqw, 100cqh); }
+  .spot1, .spot8, .spot9 { left: -3%; }
+  .spot4, .spot5 { right: -3%; }
+}
 @media (prefers-color-scheme: dark) {
   body { background: #0a0a0a; }
-  video { border-color: #3a3a3c; background: #1c1c1e; }
+  h1 { color: #f5f5f7; }
+  .screen { border-color: #3a3a3c; background: #1c1c1e; }
+  .badge { background: #2c2c2e; color: #98989d; }
   .about { color: #98989d; }
   nav a { color: #7a7a7a; }
   nav a:hover { color: #e0e0e0; }
@@ -79,15 +158,59 @@ footer { flex: none; padding-block: 1.5rem clamp(1rem, 6vh, 3.5rem); font-size: 
 </head>
 <body>
 <main>
-  <div class="stage">
-    <video src="frida.mp4" poster="assets/frida-poster.jpg" autoplay muted loop playsinline disablepictureinpicture preload="auto" aria-label="Frida interface preview"></video>
+  <div class="hero">
+    <div class="intro">
+      <h1>frida</h1>
+      <span class="badge">Available via TestFlight</span>
+      <p class="about">Frida is a personal agent that lives somewhere between thought and motion. Its interface flows like water, taking shape around your intent rather than asking you to conform to its own.</p>
+      <nav>
+        <a href="terms/">Terms <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="privacy/">Privacy <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </nav>
+    </div>
+    <div class="stage">
+      <div class="frame">
+        <div class="screen">
+          <video src="frida.mp4" poster="assets/frida-poster.jpg" autoplay muted loop playsinline disablepictureinpicture preload="auto" aria-label="Frida interface preview"></video>
+        </div>
+        <span class="sticker spot1" aria-hidden="true">🥐</span>
+        <span class="sticker spot2" aria-hidden="true">☕️</span>
+        <span class="sticker spot3" aria-hidden="true">✈️</span>
+        <span class="sticker spot4" aria-hidden="true">📸</span>
+        <span class="sticker spot5" aria-hidden="true">❤️</span>
+        <span class="sticker spot6" aria-hidden="true">📍</span>
+        <span class="sticker spot7" aria-hidden="true">🎧</span>
+        <span class="sticker spot8" aria-hidden="true">✨</span>
+        <span class="sticker spot9" aria-hidden="true">🗺️</span>
+      </div>
+    </div>
   </div>
-  <p class="about">Frida is a personal agent that lives somewhere between thought and motion. Its interface flows like water, taking shape around your intent rather than asking you to conform to its own.</p>
-  <nav>
-    <a href="terms/">Terms</a>
-    <a href="privacy/">Privacy</a>
-  </nav>
 </main>
 <footer>&copy; 2026 MonyCompany Inc. All rights reserved.</footer>
+<svg width="0" height="0" style="position: absolute" aria-hidden="true">
+  <!-- Sticker border: blur the emoji's shape, then cut the blur at a low alpha, which leaves an evenly rounded white edge. -->
+  <filter id="die-cut" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+    <feGaussianBlur in="SourceAlpha" stdDeviation="2.2"/>
+    <feComponentTransfer result="edge"><feFuncA type="linear" slope="12" intercept="-0.6"/></feComponentTransfer>
+    <feFlood flood-color="#fff"/>
+    <feComposite in2="edge" operator="in"/>
+    <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+</svg>
+<script>
+// Each sticker turns into an emoji not already on screen while it is hidden between appearances.
+(() => {
+  const pool = ['🥐', '☕️', '✈️', '📸', '❤️', '📍', '🎧', '✨', '🗺️', '🍫', '🌍', '📅', '💬', '🧳', '🍷', '🚲', '🌷', '📚', '🎵', '🥖', '🧭', '💡', '🍝', '🎨', '⭐️', '🌙'];
+  const stickers = [...document.querySelectorAll('.sticker')];
+  for (const el of stickers) {
+    el.addEventListener('animationiteration', e => {
+      if (e.animationName !== 'blink') return;
+      const shown = new Set(stickers.map(s => s.textContent));
+      const fresh = pool.filter(emoji => !shown.has(emoji));
+      el.textContent = fresh[Math.floor(Math.random() * fresh.length)];
+    });
+  }
+})();
+</script>
 </body>
 </html>
