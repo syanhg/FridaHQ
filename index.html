@@ -130,6 +130,8 @@ nav a { display: inline-flex; align-items: center; gap: 3px; color: #8a8a8a; tex
 nav svg { display: block; transition: transform 160ms ease; }
 nav a:hover { color: #3a3a3a; }
 nav a:hover svg { transform: translate(1px, -1px); }
+/* A short dash sets the company link apart from the app's own pages. */
+nav .dash { align-self: center; width: 0.75rem; border-top: 1px solid #d2d2d7; }
 footer { flex: none; padding-block: 1.5rem clamp(1rem, 6vh, 3.5rem); font-size: 0.75rem; color: #a1a1a6; }
 /* The links appear twice: beside the video on wide screens, under the copyright on narrow ones. */
 footer nav { display: none; }
@@ -162,6 +164,7 @@ footer nav { display: none; }
   .about { color: #98989d; }
   nav a { color: #7a7a7a; }
   nav a:hover { color: #e0e0e0; }
+  nav .dash { border-color: #3a3a3c; }
   footer { color: #6e6e73; }
 }
 </style>
@@ -176,6 +179,8 @@ footer nav { display: none; }
       <nav>
         <a href="terms/">Terms <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <a href="privacy/">Privacy <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <span class="dash" aria-hidden="true"></span>
+        <a href="https://mony.company/" target="_blank" rel="noopener">monycompany <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </nav>
     </div>
     <div class="stage">
@@ -201,6 +206,8 @@ footer nav { display: none; }
   <nav>
     <a href="terms/">Terms <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     <a href="privacy/">Privacy <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <span class="dash" aria-hidden="true"></span>
+    <a href="https://mony.company/" target="_blank" rel="noopener">monycompany <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   </nav>
 </footer>
 <svg width="0" height="0" style="position: absolute" aria-hidden="true">
